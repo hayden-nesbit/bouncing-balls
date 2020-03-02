@@ -196,6 +196,8 @@ function loop() {
 loop();
 
 let para = 0;
-let count = balls.length;
+let count = 25;
+let newCount = 0;
+
 
 document.getElementsByClassName("para").innerHTML = "Ball count: " + para;
