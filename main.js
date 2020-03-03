@@ -82,6 +82,7 @@ EvilCircle.prototype.collisionDetect = function () {
 
             if (distance < this.size + balls[j].size) {
                 balls[j].exists = false;
+                ballCount--;
             }
         }
     }
@@ -173,6 +174,11 @@ let evilCircle = new EvilCircle(
 
 evilCircle.setControls();
 
+
+let ballCount = balls.length;
+
+
+
 function loop() {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
     ctx.fillRect(0, 0, width, height);
@@ -185,19 +191,22 @@ function loop() {
         }
     }
 
+    if (balls.exists = false) {
+        ballCount - 1;
+    }
+    
+
     evilCircle.draw();
     evilCircle.checkBounds();
     evilCircle.collisionDetect();
-    
 
     requestAnimationFrame(loop);
+
+    document.getElementById("count").innerHTML = "Ball count: " + ballCount;
+
 }
 
 loop();
 
-let para = 0;
-let count = 25;
-let newCount = 0;
 
 
-document.getElementsByClassName("para").innerHTML = "Ball count: " + para;
