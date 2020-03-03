@@ -19,10 +19,11 @@ function Shape(x, y, velX, velY, exists) {
     this.exists = exists;
 }
 
-function Ball(x, y, velX, velY, exists, color, size) {
+function Ball(x, y, velX, velY, exists, color, size, shape) {
     Shape.call(this, x, y, velX, velY, exists);
     this.color = color;
     this.size = size;
+    this.shape = shape;
 }
 
 Ball.prototype = Object.create(Shape.prototype)
@@ -88,20 +89,39 @@ EvilCircle.prototype.collisionDetect = function () {
     }
 }
 
-EvilCircle.prototype.setControls = function () {
-    let _this = this;
+
+// passing the array function holding both eC1 and eC2 into this function which assigns keys to [0] and [1]
+
+EvilCircle.prototype.setControls = function (array) {
+    let eC1 = array[0];
+    let eC2 = array[1];
     window.onkeydown = function (e) {
         if (e.key === 'a') {
-            _this.x -= _this.velX;
+            eC1.x -= eC1.velX;
         } else if (e.key === 'd') {
-            _this.x += _this.velX;
+            eC1.x += eC1.velX;
         } else if (e.key === 'w') {
-            _this.y -= _this.velY;
+            eC1.y -= eC1.velY;
         } else if (e.key === 's') {
-            _this.y += _this.velY;
+            eC1.y += eC1.velY;
+        }
+        if (e.key === 'g') {
+            eC2.x -= eC2.velX;
+        } else if (e.key === 'j') {
+            eC2.x += eC2.velX;
+        } else if (e.key === 'y') {
+            eC2.y -= eC2.velY;
+        } else if (e.key === 'h') {
+            eC2.y += eC2.velY;
         }
     }
 }
+
+// EvilCircle.prototype.setControls2 = function (array) {
+//     let _this = array[1];
+//     window.onkeydown = function (e) {
+//     }
+// }
 
 Ball.prototype.draw = function () {
     ctx.beginPath();
@@ -109,6 +129,12 @@ Ball.prototype.draw = function () {
     ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
     ctx.fill();
 }
+
+// Ball.prototype.draw = function () {
+//     ctx.fillStyle = this.color;
+//     ctx.fillText = ("\uF1E2", this.x, this.y, this.size);
+//     ctx.font = (this.size + "px FontAwesome");
+// }
 
 Ball.prototype.collisionDetect = function () {
     for (let j = 0; j < balls.length; j++) {
@@ -158,24 +184,34 @@ while (balls.length < 25) {
         random(-7, 7),
         exists = true,
         'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
-        size
+        size,
+        "f1e2"
     );
 
     balls.push(ball);
 }
 
-let evilCircle = new EvilCircle(
+
+let ballCount = balls.length;
+
+let evilCircle1 = new EvilCircle(
     10,
     10,
     true,
-    "white",
+    "green",
     10
 );
 
-evilCircle.setControls();
-
-
-let ballCount = balls.length;
+let evilCircle2 = new EvilCircle(
+    20,
+    20,
+    true,
+    "red",
+    10
+)
+let arr = [evilCircle1, evilCircle2]
+evilCircle1.setControls(arr)
+evilCircle2.setControls(arr)
 
 
 function loop() {
@@ -189,11 +225,13 @@ function loop() {
             balls[i].collisionDetect();
         }
     }
-    
 
-    evilCircle.draw();
-    evilCircle.checkBounds();
-    evilCircle.collisionDetect();
+    evilCircle1.draw();
+    evilCircle1.checkBounds();
+    evilCircle1.collisionDetect();
+    evilCircle2.draw();
+    evilCircle2.checkBounds();
+    evilCircle2.collisionDetect();
 
     requestAnimationFrame(loop);
 
@@ -202,6 +240,3 @@ function loop() {
 }
 
 loop();
-
-
-
