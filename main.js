@@ -178,7 +178,6 @@ evilCircle.setControls();
 let ballCount = balls.length;
 
 
-
 function loop() {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
     ctx.fillRect(0, 0, width, height);
@@ -189,10 +188,6 @@ function loop() {
             balls[i].update();
             balls[i].collisionDetect();
         }
-    }
-
-    if (balls.exists = false) {
-        ballCount - 1;
     }
     
 
