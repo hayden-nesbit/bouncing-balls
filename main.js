@@ -46,7 +46,7 @@ Object.defineProperty(EvilCircle.prototype, 'constructor', {
     writable: true
 });
 
-EvilCircle.prototype.draw = function () {
+EvilCircle.prototype.draw = function() {
     ctx.beginPath();
     ctx.lineWidth = 3;
     ctx.strokeStyle = this.color;
@@ -55,7 +55,7 @@ EvilCircle.prototype.draw = function () {
 }
 
 
-EvilCircle.prototype.checkBounds = function () {
+EvilCircle.prototype.checkBounds = function() {
     if ((this.x + this.size) >= width) {
         this.x = -(this.size);
     }
@@ -74,7 +74,7 @@ EvilCircle.prototype.checkBounds = function () {
 
 }
 
-EvilCircle.prototype.collisionDetect = function () {
+EvilCircle.prototype.collisionDetect = function() {
     for (let j = 0; j < balls.length; j++) {
         if (balls[j].exists) {
             const dx = this.x - balls[j].x;
@@ -92,10 +92,10 @@ EvilCircle.prototype.collisionDetect = function () {
 
 // passing the array function holding both eC1 and eC2 into this function which assigns keys to [0] and [1]
 
-EvilCircle.prototype.setControls = function (array) {
+EvilCircle.prototype.setControls = function(array) {
     let eC1 = array[0];
     let eC2 = array[1];
-    window.onkeydown = function (e) {
+    window.onkeydown = function(e) {
         if (e.key === 'a') {
             eC1.x -= eC1.velX;
         } else if (e.key === 'd') {
@@ -117,26 +117,14 @@ EvilCircle.prototype.setControls = function (array) {
     }
 }
 
-// EvilCircle.prototype.setControls2 = function (array) {
-//     let _this = array[1];
-//     window.onkeydown = function (e) {
-//     }
-// }
-
-Ball.prototype.draw = function () {
+Ball.prototype.draw = function() {
     ctx.beginPath();
     ctx.fillStyle = this.color;
     ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
     ctx.fill();
 }
 
-// Ball.prototype.draw = function () {
-//     ctx.fillStyle = this.color;
-//     ctx.fillText = ("\uF1E2", this.x, this.y, this.size);
-//     ctx.font = (this.size + "px FontAwesome");
-// }
-
-Ball.prototype.collisionDetect = function () {
+Ball.prototype.collisionDetect = function() {
     for (let j = 0; j < balls.length; j++) {
         if (!(this === balls[j])) {
             const dx = this.x - balls[j].x;
@@ -150,7 +138,7 @@ Ball.prototype.collisionDetect = function () {
     }
 }
 
-Ball.prototype.update = function () {
+Ball.prototype.update = function() {
     if ((this.x + this.size) >= width) {
         this.velX = -(this.velX);
     }
